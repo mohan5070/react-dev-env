@@ -1,0 +1,77 @@
+{
+  "name": "rjc-dev-environment",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "run-p start:dev start:api",
+    "start:dev": "react-scripts start",
+    "prestart:api": "node tools/createMockDb.js",
+    "start:api": "node tools/apiServer.js",
+    "build": "react-scripts build --stats && webpack-bundle-analyzer build/bundle-stats.json -m server",
+    "test": "react-scripts test",
+    "test:ci": "cross-env NODE_ENV=CI react-scripts test",
+    "eject": "react-scripts eject",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public",
+    "cypress": "cypress",
+    "chromatic": "chromatic test --app-code=\"gkbd875bekh\"",
+    "test:all": "run-p test:ci cypress chromatic"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "bootstrap": "^4.3.1",
+    "react": "16.8.6",
+    "react-dom": "16.8.6",
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "3.0.1",
+    "reactstrap": "^7.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@storybook/addon-a11y": "^5.1.9",
+    "@storybook/addon-actions": "^5.1.9",
+    "@storybook/addon-info": "^5.1.9",
+    "@storybook/addon-knobs": "^5.1.9",
+    "@storybook/addon-links": "^5.1.9",
+    "@storybook/addons": "^5.1.9",
+    "@storybook/react": "^5.1.9",
+    "cross-env": "^5.2.0",
+    "cypress": "^3.3.2",
+    "eslint-plugin-cypress": "^2.2.1",
+    "eslint-plugin-you-dont-need-lodash-underscore": "^6.5.0",
+    "husky": "^2.7.0",
+    "json-server": "^0.15.0",
+    "lint-staged": "^8.2.1",
+    "node-sass": "^4.12.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.18.2",
+    "react-test-renderer": "^16.8.6",
+    "@testing-library/react": "^8.0.4",
+    "storybook-chromatic": "^1.4.0",
+    "storybook-host": "^5.1.0",
+    "webpack-bundle-analyzer": "^3.3.2"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "plugin:jsx-a11y/recommended"
+    ]
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,json,css,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  }
+}
